@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Header from "./components/Header/Header";
+import React from "react";
+import getLPTheme from "./data/getLPTheme";
+import { RouterProvider } from "react-router-dom";
+import router from "./route";
+import { DocumentProvider } from "context/providers";
 
 function App() {
+  const [mode, setMode] = React.useState("light");
+  const LPtheme = createTheme(getLPTheme(mode));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={LPtheme}>
+      <DocumentProvider>
+        <RouterProvider router={router} />
+      </DocumentProvider>
+    </ThemeProvider>
   );
 }
 
