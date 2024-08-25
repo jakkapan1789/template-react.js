@@ -1,4 +1,3 @@
-/* eslint-disable */
 import * as React from "react";
 import {
   Box,
@@ -17,18 +16,18 @@ import {
   TableRow,
   Chip,
 } from "@mui/material";
-
 import SearchOffIcon from "@mui/icons-material/SearchOff";
 import ChipStatus from "./ChipStatus/ChipStatus";
 import StyledTableCell from "./StyledTableCell/StyledTableCell";
 import StyledTableRow from "./StyledTableRow/StyledTableRow";
-import { useDocument } from "context/hook";
 import ChanelTooltip from "./ChanelTooltip/ChanelTooltip";
-export default function TableDocument({ rows }) {
-  const { searchOption, searchValue } = useDocument();
+import { useNavigate } from "react-router";
 
-  const defaultRowHeight = 60;
-  const rowsPerPage = 9;
+export default function TableDocument({ rows }) {
+  const navigate = useNavigate();
+  // const { searchOption, searchValue, startTime, endTime } = useDocument();
+  const defaultRowHeight = 61;
+  const rowsPerPage = 8;
   const [page, setPage] = React.useState(1);
   const [pageCount, setPageCount] = React.useState(
     Math.ceil(rows.length / rowsPerPage)
@@ -45,25 +44,16 @@ export default function TableDocument({ rows }) {
 
   React.useEffect(() => {
     let filteredRows = rows;
-
-    if (searchValue !== "") {
-      if (searchOption === "id") {
-        filteredRows = rows.filter((f) =>
-          f.campaignId.toLowerCase().startsWith(searchValue.toLowerCase())
-        );
-      } else {
-        filteredRows = rows.filter((f) =>
-          f.communicationId.toLowerCase().startsWith(searchValue.toLowerCase())
-        );
-      }
-    }
-
     const startIndex = (page - 1) * rowsPerPage;
     const endIndex = Math.min(startIndex + rowsPerPage, filteredRows.length);
     const newPaginatedRows = filteredRows.slice(startIndex, endIndex);
 
     setPaginatedRows(newPaginatedRows);
-  }, [searchValue, searchOption, page]);
+  }, [page, rows]);
+
+  React.useEffect(() => {
+    setPageCount(Math.ceil(rows.length / rowsPerPage));
+  }, [rows]);
 
   return (
     <>
@@ -79,19 +69,26 @@ export default function TableDocument({ rows }) {
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>ID</StyledTableCell>
-                <StyledTableCell align="left">Doc No.</StyledTableCell>
-                <StyledTableCell align="left">Name</StyledTableCell>
-                <StyledTableCell align="left">Created by</StyledTableCell>
-                <StyledTableCell align="left">Created date</StyledTableCell>
-                <StyledTableCell align="center">Chanels</StyledTableCell>
-                <StyledTableCell align="center">Status</StyledTableCell>
+                <StyledTableCell>Campaign Code</StyledTableCell>
+                <StyledTableCell align="left">
+                  Communication Code
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  Communication Name
+                </StyledTableCell>
+                <StyledTableCell align="left">สร้างโดย</StyledTableCell>
+                <StyledTableCell align="left">วันที่สร้าง</StyledTableCell>
+                <StyledTableCell align="center">ช่องทางสื่อสาร</StyledTableCell>
+                <StyledTableCell align="center">สถานะ</StyledTableCell>
+                <StyledTableCell align="center">
+                  วันที่อัพเดทล่าสุด (Admin)
+                </StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {paginatedRows.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={7} sx={{ border: "none" }}>
+                  <TableCell colSpan={8} sx={{ border: "none" }}>
                     <Grid container>
                       <Grid item xs={12}>
                         <Stack
@@ -100,7 +97,7 @@ export default function TableDocument({ rows }) {
                             justifyContent: "center",
                             alignItems: "center",
                             height: 60,
-                            marginTop: 5,
+                            marginTop: 10,
                           }}
                         >
                           <SearchOffIcon
@@ -109,11 +106,10 @@ export default function TableDocument({ rows }) {
                           <Typography
                             sx={{ color: "#455A64", fontWeight: "bold" }}
                           >
-                            No results found for your search.
+                            ไม่พบผลลัพธ์ที่คุณค้นหา
                           </Typography>
                           <Typography sx={{ color: "#455A64" }}>
-                            Please try using a different search term. Then try
-                            searching again.
+                            กรุณาลองใช้คำค้นอื่น แล้วลองค้นหาใหม่อีกครั้ง
                           </Typography>
                         </Stack>
                       </Grid>
@@ -134,36 +130,43 @@ export default function TableDocument({ rows }) {
                     }}
                   >
                     <StyledTableCell component="th" scope="row">
-                      {row.campaignId}
+                      {row.campaign_code}
                     </StyledTableCell>
                     <StyledTableCell
                       align="left"
                       style={{
-                        color: "#455A64",
+                        color: "rgb(21,119,245)",
                         fontWeight: "bold",
 
                         textDecoration: "underline",
                       }}
-                      //   onClick={() => route.push(`docs\\create`)}
+                      onClick={() =>
+                        navigate(`docs/update?guid=${row.communication_guid}`)
+                      }
                     >
-                      {row.communicationId}
+                      {row.communication_code}
                     </StyledTableCell>
                     <StyledTableCell align="left">
-                      {row.programName}
+                      {row.marketing_name}
                     </StyledTableCell>
                     <StyledTableCell align="left">
-                      {row.createBy}
+                      {row.created_by}
                     </StyledTableCell>
                     <StyledTableCell align="left">
-                      {row.createData}
+                      {row.created_at_display}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {/* {row.chanels} */}
-                      <ChanelTooltip value={row.chanels} />
-                      {/* <Chip label={row.chanels} /> */}
+                      {row.chanel_amount === 0 ? (
+                        <Chip label={row.chanel_amount} />
+                      ) : (
+                        <ChanelTooltip data={row} />
+                      )}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       <ChipStatus status={row.status} />
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {row.updated_at_display}
                     </StyledTableCell>
                   </StyledTableRow>
                 ))
@@ -188,7 +191,7 @@ export default function TableDocument({ rows }) {
               lg={4}
               sx={{ textAlign: "left", paddingLeft: 2, paddingBottom: 1 }}
             >
-              <Typography>Total {rows.length} items</Typography>
+              <Typography>ทั้งหมด {rows.length} รายการ</Typography>
             </Grid>
             <Grid
               item
@@ -221,7 +224,7 @@ export default function TableDocument({ rows }) {
                 paddingBottom: 1,
               }}
             >
-              <Typography sx={{ marginRight: 1 }}>Page</Typography>
+              <Typography sx={{ marginRight: 1 }}>หน้า</Typography>
               <Select
                 size="small"
                 value={page}

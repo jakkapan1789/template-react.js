@@ -1,47 +1,48 @@
 import { Card, Grid, Typography, Button } from "@mui/material";
 import useDialog from "components/common/AlertDialog/AlertDialog";
+import DialogExport from "components/common/DialogExport/DialogExport";
+import { useState } from "react";
+import HoverMenuButton from "components/common/Test/Test";
 const Component = () => {
   const [showDialog, DialogComponent] = useDialog();
 
   const alertSuccess = () => {
     showDialog({
-      title: "บันทึกเรียบร้อยแล้ว",
-      message: `วันเวลาบันทึก 20 กรกฏาคม, 2024, 10:00 AM`,
+      title: "Recorded successfully",
+      message: `Recording date 20 July 2024 10:00 AM.`,
       icon: "success",
-      btnRoutePush: {
-        enable: true,
-        label: "ตกลง",
-        url: "",
-      },
+      btnConfirmText: "Ok",
     });
   };
   const alertError = () => {
     showDialog({
-      title: "ไม่สามารถดำเนินการต่อได้",
-      message: `กรุณาลองใหม่อีกครั้ง`,
+      title: "Unable to continue",
+      message: `Please try again.`,
       icon: "error",
-      btnRoutePush: {
-        enable: true,
-        label: "ตกลง",
-        url: "",
-      },
+      btnConfirmText: "Ok",
     });
   };
 
   const alertConfirm = () => {
     const result = showDialog({
-      title: "การยืนยัน",
-      message: "กรุณายืนยันเพื่อบันทึก",
+      title: "Confirmation",
+      message: "Please confirm to save.",
       icon: "",
+      btnConfirmText: "Ok",
+      btnCancelText: "Cancel",
     });
     if (result) {
       // if yes, put logc here
       console.log("confirm result", result);
     }
   };
+
+  const [isExport, setIsExport] = useState(false);
+
   return (
     <Grid container spacing={1}>
       {DialogComponent}
+      <DialogExport open={isExport} handleClose={() => setIsExport(false)} />
       <Grid item xs={12} md={12} sm={12} sx={{ display: "flex" }}>
         <Typography sx={{ color: "#455A64", fontWeight: "bold" }}>
           Component
@@ -80,9 +81,17 @@ const Component = () => {
           <Button
             variant="contained"
             onClick={alertConfirm}
-            sx={{ textTransform: "none" }}
+            sx={{ mb: 1, textTransform: "none" }}
           >
             Alert Confirm
+          </Button>
+          <Button
+            variant="contained"
+            color="info"
+            onClick={() => setIsExport(true)}
+            sx={{ textTransform: "none" }}
+          >
+            Export File
           </Button>
         </Card>
       </Grid>
@@ -98,9 +107,7 @@ const Component = () => {
             overflow: "visible",
             borderRadius: "8px",
           }}
-        >
-          xx
-        </Card>
+        ></Card>
       </Grid>
     </Grid>
   );

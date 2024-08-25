@@ -24,3 +24,82 @@ html, body {
   display: absolute;
   cursor: pointer;
 }
+
+
+.navbar {
+  display: flex;
+  justify-content: center;
+}
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.menu li {
+  position: relative;
+}
+
+.menu a {
+  color: #fff; 
+  padding: 5px 20px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s, border-radius 0.3s;
+  border-radius: 15px; 
+  background-color: #5C7E52; 
+  transition: color 0.3s, transform 0.3s;
+}
+
+.menu a:hover {
+  background-color: #4f7244;
+}
+
+.dropdown:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+
+.submenu {
+  position: absolute;
+  top:60;
+  left: 0;
+  background-color: #000; 
+  min-width: 200px;
+  z-index: 1000;
+  border-radius: 5px; 
+  overflow: hidden; 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  transform: translateY(-10px);
+  opacity: 0;
+}
+
+.submenu li {
+  border-top: 1px solid #4f7244;
+}
+
+.submenu li:first-child {
+  border-top: none;
+}
+
+
+.submenu a {
+  padding: 10px 15px;
+  border-radius: 0;
+  color: #fff;
+  transition: color 0.3s, transform 0.3s; 
+}
+
+.submenu a:hover {
+  color: #fff;
+}
+
+
+.submenu a:hover {
+  background-color: #4f7244;
+}

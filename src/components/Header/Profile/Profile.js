@@ -13,7 +13,7 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { ButtonBase, Stack } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import MenuList from "../MenuList/MenuList";
+import MenuList from "./MenuList/MenuList";
 export default function Profile() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

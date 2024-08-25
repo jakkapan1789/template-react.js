@@ -1,6 +1,7 @@
 import { useAxiosServices } from "lib/api";
 
 // how to use home service , import useHomeService and then , write code like this : const { Home } = useHomeService();
+
 const useHomeService = () => {
   const { apiService } = useAxiosServices();
 

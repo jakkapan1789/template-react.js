@@ -1,7 +1,27 @@
+// const navigationConfig = [
+//   { label: "Dashboard", path: "dashboard" },
+//   { label: "Component", path: "component" },
+//   { label: "Document", path: "document" },
+// ];
+
 const navigationConfig = [
-  { label: "Dashboard", path: "dashboard" },
-  { label: "Component", path: "component" },
-  { label: "Document", path: "document" },
+  {
+    label: "Dashboard",
+    path: "/dashboard",
+  },
+  {
+    label: "Component",
+    path: "",
+    submenu: [
+      { label: "Component", path: "/component" },
+      { label: "Development", path: "/" },
+    ],
+  },
+  {
+    label: "Inventory Control",
+    path: "/document",
+  },
+  // more items...
 ];
 
 export default navigationConfig;

@@ -21,12 +21,28 @@ const useDialog = () => {
     title: "",
     message: "",
     icon: "",
-    btnRoutePush: null, // allow null here
+    btnConfirmText: "Ok",
+    btnCancelText: "",
+    btnConfirmRedirectUrl: "",
   });
   const [resolve, setResolve] = useState(null);
 
-  const showDialog = ({ title, message, icon, btnRoutePush = null }) => {
-    setDialogData({ title, message, icon, btnRoutePush });
+  const showDialog = ({
+    title,
+    message,
+    icon,
+    btnConfirmText,
+    btnCancelText,
+    btnConfirmRedirectUrl,
+  }) => {
+    setDialogData({
+      title,
+      message,
+      icon,
+      btnConfirmText,
+      btnCancelText,
+      btnConfirmRedirectUrl,
+    });
     setOpen(true);
 
     return new Promise((resolve) => {
@@ -95,7 +111,7 @@ const useDialog = () => {
       </DialogContent>
       <DialogActions>
         <Grid container spacing={1} sx={{ pl: 3, pr: 3, pb: 2 }}>
-          {!dialogData.btnRoutePush ? (
+          {dialogData.btnCancelText ? (
             <>
               <Grid item xs={6}>
                 <Button
@@ -105,27 +121,28 @@ const useDialog = () => {
                     color: "#5C7E52",
                     borderColor: "#5C7E52",
                     ":hover": { borderColor: "#5C7E52" },
+                    textTransform: "none",
                   }}
                   variant="outlined"
                   fullWidth
                 >
-                  ยกเลิก
+                  {dialogData.btnCancelText}
                 </Button>
               </Grid>
               <Grid item xs={6}>
                 <Button
                   onClick={() => handleClose(true)}
                   //   color="error"
-                  sx={{ bgcolor: "#5C7E52", ":hover": { bgcolor: "#5C7E52" } }}
+                  sx={{
+                    bgcolor: "#5C7E52",
+                    ":hover": { bgcolor: "#5C7E52" },
+                    textTransform: "none",
+                  }}
                   variant="contained"
                   autoFocus={false}
                   fullWidth
                 >
-                  {dialogData.title === "ยืนยันการอนุมัติ"
-                    ? "ยืนยันอนุมัติ"
-                    : dialogData.title === "ยืนยันการไม่อนุมัติ"
-                    ? "ยืนยันไม่อนุมัติ"
-                    : "ยินยัน"}
+                  {dialogData.btnConfirmText}
                 </Button>
               </Grid>
             </>
@@ -135,18 +152,22 @@ const useDialog = () => {
                 <Button
                   onClick={() => {
                     {
-                      dialogData.btnRoutePush.url &&
-                        navigate(dialogData.btnRoutePush.url);
+                      dialogData.btnConfirmRedirectUrl &&
+                        navigate(dialogData.btnConfirmRedirectUrl);
                     }
 
                     handleClose(true);
                   }}
-                  sx={{ bgcolor: "#5C7E52", ":hover": { bgcolor: "#5C7E52" } }}
+                  sx={{
+                    bgcolor: "#5C7E52",
+                    ":hover": { bgcolor: "#5C7E52" },
+                    textTransform: "none",
+                  }}
                   variant="contained"
                   autoFocus={false}
                   fullWidth
                 >
-                  {dialogData.btnRoutePush.label}
+                  {dialogData.btnConfirmText}
                 </Button>
               </Grid>
             </>

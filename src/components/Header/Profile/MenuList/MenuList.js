@@ -6,6 +6,7 @@ const MenuList = ({ anchorEl, open, onClose, onSignOut }) => {
   return (
     <Menu
       anchorEl={anchorEl}
+      autoFocus={false}
       id="account-menu"
       open={open}
       onClose={onClose}

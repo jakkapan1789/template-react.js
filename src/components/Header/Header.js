@@ -1,15 +1,16 @@
-import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
-import { Stack } from "@mui/material";
+import { Stack, Menu } from "@mui/material";
 import Profile from "./Profile/Profile";
 import Drawer from "./Drawer/Drawer";
 import AppBar from "./AppBar/AppBar";
 import navigationConfig from "../../data/navigation";
 import { useNavigate } from "react-router-dom";
+import MainMenu from "./MainMenu/MainMenu";
 
 const textStyle = {
   fontSize: 16,
@@ -39,7 +40,7 @@ function Header() {
           }}
         >
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {navigationConfig.map((nav, index) => (
+            {/* {navigationConfig.map((nav, index) => (
               <MenuItem
                 key={index}
                 sx={menuStyle}
@@ -49,7 +50,9 @@ function Header() {
                   {nav.label}
                 </Typography>
               </MenuItem>
-            ))}
+            ))} */}
+
+            <MainMenu />
           </Box>
 
           <Stack direction={"row"} spacing={1}>

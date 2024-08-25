@@ -1,5 +1,6 @@
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+
 import Header from "./components/Header/Header";
 import React from "react";
 import getLPTheme from "./data/getLPTheme";
