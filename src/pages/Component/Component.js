@@ -1,8 +1,9 @@
-import { Card, Grid, Typography, Button } from "@mui/material";
+import { Card, Grid, Typography, Button, Step, Stepper } from "@mui/material";
 import useDialog from "components/common/AlertDialog/AlertDialog";
 import DialogExport from "components/common/DialogExport/DialogExport";
 import { useState } from "react";
 import HoverMenuButton from "components/common/Test/Test";
+import PipelineStages from "components/common/PipelineStages/PipelineStages";
 const Component = () => {
   const [showDialog, DialogComponent] = useDialog();
 
@@ -60,6 +61,7 @@ const Component = () => {
             bgcolor: "white",
             overflow: "visible",
             borderRadius: "8px",
+            // border: "1px dotted gray",
           }}
         >
           <Button
@@ -95,19 +97,23 @@ const Component = () => {
           </Button>
         </Card>
       </Grid>
+
       <Grid item xs={12} sm={9} md={9} sx={{ display: "flex" }}>
         <Card
           sx={{
             display: "flex",
-            flexDirection: "column",
+            flexDirection: "row",
             justifyContent: "space-between",
             flexGrow: 1,
             p: 1,
             bgcolor: "white",
             overflow: "visible",
             borderRadius: "8px",
+            alignItems: "center",
           }}
-        ></Card>
+        >
+          <PipelineStages />
+        </Card>
       </Grid>
     </Grid>
   );
