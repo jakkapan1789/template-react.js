@@ -4,6 +4,28 @@
 //   { label: "Document", path: "document" },
 // ];
 
+// const navigationConfig = [
+//   {
+//     label: "Dashboard",
+//     path: "/dashboard",
+//   },
+//   {
+//     label: "Component",
+//     path: "",
+//     submenu: [
+//       { label: "Component", path: "/component" },
+//       { label: "Development", path: "/" },
+//     ],
+//   },
+//   {
+//     label: "Inventory Control",
+//     path: "/document",
+//   },
+//   // more items...
+// ];
+
+// export default navigationConfig;
+
 const navigationConfig = [
   {
     label: "Dashboard",
@@ -13,8 +35,19 @@ const navigationConfig = [
     label: "Component",
     path: "",
     submenu: [
-      { label: "Component", path: "/component" },
-      { label: "Development", path: "/" },
+      {
+        label: "Component",
+        path: "/component",
+      },
+      {
+        label: "Development",
+        path: "/",
+        submenu: [
+          // Nested submenu inside "Development"
+          { label: "API", path: "/development/api" },
+          { label: "UI", path: "/development/ui" },
+        ],
+      },
     ],
   },
   {
