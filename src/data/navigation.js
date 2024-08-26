@@ -32,20 +32,19 @@ const navigationConfig = [
     path: "/dashboard",
   },
   {
-    label: "Component",
+    label: "Inventory Control",
     path: "",
     submenu: [
       {
-        label: "Component",
+        label: "Storage",
         path: "/component",
       },
       {
-        label: "Development",
+        label: "Finish Good",
         path: "/",
         submenu: [
-          // Nested submenu inside "Development"
-          { label: "API", path: "/development/api" },
-          { label: "UI", path: "/development/ui" },
+          { label: "Create", path: "/development/api" },
+          { label: "Delete", path: "/development/ui" },
         ],
       },
     ],
