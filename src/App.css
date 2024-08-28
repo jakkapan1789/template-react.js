@@ -2,7 +2,6 @@
 @font-face {
   font-family: 'Kanit';
   src: url('./assets/fonts/Kanit-Regular.ttf') format('truetype');
-
 }
 
 html, body {
@@ -25,8 +24,6 @@ html, body {
   cursor: pointer;
 }
 
-
-
 .navbar {
   display: flex;
   justify-content: center;
@@ -48,10 +45,9 @@ html, body {
   padding: 5px 20px;
   text-decoration: none;
   display: block;
-  transition: background-color 0.3s, border-radius 0.3s;
+  transition: background-color 0.3s, border-radius 0.3s, color 0.3s, transform 0.3s !important;
   border-radius: 5px; 
   background-color: #5C7E52; 
-  transition: color 0.3s, transform 0.3s;
 }
 
 .menu a:hover {
@@ -73,19 +69,28 @@ html, body {
   z-index: 1000;
   border-radius: 15px; 
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s ease !important; 
   transform: translateY(-10px);
   opacity: 0;
- 
+  visibility: hidden;
 }
 
 .submenu {
-  top: 30px;
+  top: 35px;
 }
 
 .subsubmenu {
-  left: 100%;
-  top: 50%;
+  position: absolute;
+  left: 100%; 
+  background-color: #000; 
+  min-width: 200px;
+  z-index: 1000;
+  border-radius: 15px; 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease !important;
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
 }
 
 .submenu li,
@@ -111,89 +116,62 @@ html, body {
   background-color: #4f7244;
 }
 
+.arrow {
+  border: solid rgb(255, 255, 255);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 2px;
+  margin-left: 10px;
+  margin-top: -2px;
+  transition: transform 0.3s ease;
+}
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
 
-/* 
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
 
-.navbar {
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.not-found {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  height: 100vh;
+  text-align: center;
+  background-color: #f8f9fa;
+  color: #343a40;
 }
 
-.menu {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
+.not-found h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
-.menu li {
-  position: relative;
+.not-found p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
 }
 
-.menu a {
-  color: #fff; 
-  padding: 5px 20px;
+.not-found a {
   text-decoration: none;
-  display: block;
-  transition: background-color 0.3s, border-radius 0.3s;
-  border-radius: 15px; 
-  background-color: #5C7E52; 
-  transition: color 0.3s, transform 0.3s;
+  color: #007bff;
+  font-weight: bold;
 }
 
-.menu a:hover {
-  background-color: #4f7244;
+.not-found a:hover {
+  text-decoration: underline;
 }
-
-.dropdown:hover .submenu,
-.dropdown:hover .subsubmenu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  
-}
-
-.submenu,
-.subsubmenu {
-  position: absolute;
-  background-color: #000; 
-  min-width: 200px;
-  z-index: 1000;
-  border-radius: 15px !important; 
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  transform: translateY(-10px);
-  opacity: 0;
-}
-
-.submenu {
-  top: 30px;
-}
-
-.subsubmenu {
-  left: 100%;
-  top: 50%;
-}
-
-.submenu li,
-.subsubmenu li {
-  border-top: 1px solid #4f7244;
-}
-
-.submenu li:first-child,
-.subsubmenu li:first-child {
-  border-top: none;
-}
-
-.submenu a,
-.subsubmenu a {
-  padding: 10px 15px;
-  border-radius: 0;
-  color: #fff;
-  transition: color 0.3s, transform 0.3s;
-}
-
-.submenu a:hover,
-.subsubmenu a:hover {
-  background-color: #4f7244;
-} */
