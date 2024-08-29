@@ -40,18 +40,6 @@ function Header() {
           }}
         >
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {/* {navigationConfig.map((nav, index) => (
-              <MenuItem
-                key={index}
-                sx={menuStyle}
-                onClick={() => navigate(nav.path)}
-              >
-                <Typography variant="body2" sx={textStyle}>
-                  {nav.label}
-                </Typography>
-              </MenuItem>
-            ))} */}
-
             <MainMenu />
           </Box>
 

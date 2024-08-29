@@ -1,5 +1,5 @@
 import React from "react";
-import { DocumentContext } from "./contexts";
+import { DocumentContext, LoadingContext } from "./contexts";
 
 export const DocumentProvider = ({ children }) => {
   const [documents, setDocuments] = React.useState([]);
@@ -19,5 +19,18 @@ export const DocumentProvider = ({ children }) => {
     >
       {children}
     </DocumentContext.Provider>
+  );
+};
+
+export const LoadingProvider = ({ children }) => {
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const startLoading = () => setIsLoading(true);
+  const stopLoading = () => setIsLoading(false);
+
+  return (
+    <LoadingContext.Provider value={{ isLoading, startLoading, stopLoading }}>
+      {children}
+    </LoadingContext.Provider>
   );
 };

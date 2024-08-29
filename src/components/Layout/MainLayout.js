@@ -4,11 +4,24 @@ import { Container, Stack } from "@mui/material";
 import Header from "components/Header/Header";
 import Transition from "components/common/Transition/Transition";
 import { useLocation } from "react-router-dom";
-
+import BackdropLoader from "components/common/BackdropLoader/BackdropLoader";
+import { useLoading } from "context/hook";
 export default function MainLayout({ children }) {
   const location = useLocation();
+
+  const { startLoading, stopLoading } = useLoading();
+  React.useEffect(() => {
+    startLoading();
+
+    const timer = setTimeout(() => {
+      stopLoading();
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <>
+      <BackdropLoader />
       <Header />
       <Box>
         <Box
@@ -42,7 +55,6 @@ export default function MainLayout({ children }) {
                 },
               }}
             >
-              {/* <Transition>{children}</Transition> */}
               <Transition key={location.pathname}>{children}</Transition>
             </Stack>
           </Container>

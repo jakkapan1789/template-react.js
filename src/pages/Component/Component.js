@@ -1,9 +1,20 @@
-import { Card, Grid, Typography, Button, Step, Stepper } from "@mui/material";
+import {
+  Card,
+  Grid,
+  Typography,
+  Button,
+  Step,
+  Stepper,
+  Stack,
+  Box,
+} from "@mui/material";
 import useDialog from "components/common/AlertDialog/AlertDialog";
 import DialogExport from "components/common/DialogExport/DialogExport";
 import { useState } from "react";
 import HoverMenuButton from "components/common/Test/Test";
 import PipelineStages from "components/common/PipelineStages/PipelineStages";
+import FileUpload from "components/common/FileUpload/FileUpload";
+import { Girl } from "@mui/icons-material";
 const Component = () => {
   const [showDialog, DialogComponent] = useDialog();
 
@@ -39,6 +50,15 @@ const Component = () => {
   };
 
   const [isExport, setIsExport] = useState(false);
+  const [upload, setUpload] = useState();
+  const handleFileChange = (file) => {
+    setUpload(file);
+  };
+
+  const handleDeleteFile = () => {
+    // console.log("file", file);
+    setUpload(null);
+  };
 
   return (
     <Grid container spacing={1}>
@@ -113,6 +133,33 @@ const Component = () => {
           }}
         >
           <PipelineStages />
+        </Card>
+      </Grid>
+      <Grid item xs={12} md={12}>
+        <Card
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            flexGrow: 1,
+            p: 1,
+            bgcolor: "white",
+            overflow: "visible",
+            borderRadius: "8px",
+            alignItems: "center",
+          }}
+        >
+          <Grid container spacing={1}>
+            <Grid item xs={3} md={3}>
+              <FileUpload
+                message="จำกัดขนาดไฟล์ไม่เกิน 1 MB ขนาด 1040*930"
+                name={upload?.name}
+                value={upload}
+                onChange={handleFileChange}
+                onDelete={handleDeleteFile}
+              />
+            </Grid>
+          </Grid>
         </Card>
       </Grid>
     </Grid>
