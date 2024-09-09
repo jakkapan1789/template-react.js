@@ -29,7 +29,7 @@ function Header() {
 
   return (
     <>
-      <AppBar position="absolute">
+      <AppBar position="fixed">
         <Toolbar
           sx={{
             pr: "24px",
@@ -53,7 +53,7 @@ function Header() {
           </Stack>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent">
+      <Drawer variant="permanent" sx={{ position: "fixed", zIndex: 999 }}>
         <Toolbar
           sx={{
             display: "flex",

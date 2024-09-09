@@ -2,6 +2,7 @@ import React from "react";
 import { Menu, MenuItem, ListItemIcon, Divider, Avatar } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
+
 const MenuList = ({ anchorEl, open, onClose, onSignOut }) => {
   return (
     <Menu

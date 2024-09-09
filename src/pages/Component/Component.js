@@ -35,8 +35,8 @@ const Component = () => {
     });
   };
 
-  const alertConfirm = () => {
-    const result = showDialog({
+  const alertConfirm = async () => {
+    const result = await showDialog({
       title: "Confirmation",
       message: "Please confirm to save.",
       icon: "",
@@ -45,6 +45,12 @@ const Component = () => {
     });
     if (result) {
       // if yes, put logc here
+      await showDialog({
+        title: "Recorded successfully",
+        message: `Recording date 20 July 2024 10:00 AM.`,
+        icon: "success",
+        btnConfirmText: "Ok",
+      });
       console.log("confirm result", result);
     }
   };

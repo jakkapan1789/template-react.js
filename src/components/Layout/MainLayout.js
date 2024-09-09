@@ -9,16 +9,16 @@ import { useLoading } from "context/hook";
 export default function MainLayout({ children }) {
   const location = useLocation();
 
-  const { startLoading, stopLoading } = useLoading();
-  React.useEffect(() => {
-    startLoading();
+  // const { startLoading, stopLoading } = useLoading();
+  // React.useEffect(() => {
+  //   startLoading();
 
-    const timer = setTimeout(() => {
-      stopLoading();
-    }, 2000);
+  //   const timer = setTimeout(() => {
+  //     stopLoading();
+  //   }, 2000);
 
-    return () => clearTimeout(timer);
-  }, []);
+  //   return () => clearTimeout(timer);
+  // }, []);
   return (
     <>
       <BackdropLoader />
@@ -30,6 +30,7 @@ export default function MainLayout({ children }) {
             width: "100%",
             backgroundSize: "100% 20%",
             backgroundRepeat: "no-repeat",
+            pt: 8,
           })}
         >
           <Container

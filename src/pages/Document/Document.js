@@ -11,8 +11,10 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
-// import SearchIcon from "@mui/icons-material/Search";
+
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { useDocument } from "context/hook";
+import InsertDialog from "components/equipment/InsertDialog/InsertDialog";
 
 import AppTabs from "./AppTabs/AppTabs";
 const Document = () => {
@@ -32,6 +34,8 @@ const Document = () => {
     setSearchOption(event.target.value);
   };
 
+  const [open, setOpen] = React.useState(false);
+
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} md={12} sm={12} sx={{ display: "flex" }}>
@@ -39,7 +43,7 @@ const Document = () => {
           Search options
         </Typography>
       </Grid>
-
+      <InsertDialog open={open} onClose={() => setOpen(false)} />
       <Grid item xs={12} sm={12} md={12} sx={{ display: "flex" }}>
         <Card
           sx={{
@@ -116,7 +120,6 @@ const Document = () => {
                                   Doc No.
                                 </MenuItem>
                               </Select>
-                              {/* <SearchIcon /> */}
                             </InputAdornment>
                           ),
                         }}
@@ -124,43 +127,35 @@ const Document = () => {
                     </Box>
                   </Grid>
 
-                  <Grid item xs={0} sm={1} md={1}></Grid>
-                  {/* <Grid
-                      item
-                      xs={12}
-                      sm={4}
-                      md={4}
+                  <Grid
+                    item
+                    xs={12}
+                    sm={4}
+                    md={4}
+                    sx={{
+                      display: "flex",
+                    }}
+                  >
+                    <Button
+                      onClick={() => setOpen(true)}
+                      variant="contained"
+                      startIcon={<AddOutlinedIcon />}
                       sx={{
-                        display: "flex",
-                        justifyContent: "flex-end",
-                        alignContent: "right",
+                        borderRadius: 2,
+                        pl: 3,
+                        pr: 3,
+                        bgcolor: "#455A64",
+                        textTransform: "none",
+                        color: "white",
+                        ":hover": {
+                          bgcolor: "#455A64",
+                          color: "white",
+                        },
                       }}
                     >
-                      <ButtonGroup>
-                        <Button
-                          sx={{
-                            color: "#BDBDBD",
-                            borderColor: "#BDBDBD",
-                            borderRadius: "9px",
-                            height: 39,
-                            ":hover": {
-                              borderColor: "#BDBDBD",
-                            },
-                          }}
-                          startIcon={<CalendarMonthIcon />}
-                        ></Button>
-                        <TCalendar
-                          value={startTime}
-                          onChange={(time) => setStartTime(time)}
-                          label={"จาก"}
-                        />
-                        <TCalendar
-                          value={endTime}
-                          onChange={(time) => setEndTime(time)}
-                          label={"ถึง"}
-                        />
-                      </ButtonGroup>
-                    </Grid> */}
+                      Insert Equipment
+                    </Button>
+                  </Grid>
                 </Grid>
               </Box>
             </Box>
@@ -168,20 +163,6 @@ const Document = () => {
         </Card>
       </Grid>
       <Grid item xs={12} sm={12} md={12} sx={{ display: "flex" }}>
-        {/* <Card
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            flexGrow: 1,
-            p: 1,
-            bgcolor: "white",
-            overflow: "visible",
-            borderRadius: "8px",
-          }}
-        >
-          xx
-        </Card> */}
         <AppTabs />
       </Grid>
     </Grid>

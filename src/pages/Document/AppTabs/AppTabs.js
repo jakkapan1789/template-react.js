@@ -10,6 +10,7 @@ import TableDocument from "components/common/TableDocument/TableDocument";
 import DownloadIcon from "@mui/icons-material/Download";
 import { useDocument } from "context/hook";
 import useDialog from "components/common/AlertDialog/AlertDialog";
+import rawData from "data/json/equipment.json";
 
 function a11yProps(index) {
   return {
@@ -19,102 +20,47 @@ function a11yProps(index) {
 }
 
 export default function AppTabs() {
-  // const { Document } = useCommuService();
   const { documents, setDocuments } = useDocument();
-  // const { isLoading, startLoading, stopLoading } = useLoading();
   const [showDialog, DialogComponent] = useDialog();
   const [rows, setRows] = React.useState([]);
-  const { searchOption, searchValue, startTime, endTime } = useDocument();
+  const { searchOption, searchValue } = useDocument();
 
   React.useEffect(() => {
-    if (documents.length >= 1) {
-      let filteredRows = documents;
+    if (rawData.length >= 1) {
+      let filteredRows = rawData;
       if (searchValue !== "") {
-        if (searchOption === "campaignId") {
-          filteredRows = documents.filter((f) =>
-            f.campaign_code.toLowerCase().includes(searchValue.toLowerCase())
+        if (searchOption === "id") {
+          filteredRows = rawData.filter((f) =>
+            f.id.toLowerCase().includes(searchValue.toLowerCase())
           );
         } else {
-          filteredRows = documents.filter((f) =>
-            f.communication_code
-              .toLowerCase()
-              .includes(searchValue.toLowerCase())
+          filteredRows = rawData.filter((f) =>
+            f.docNo.toLowerCase().includes(searchValue.toLowerCase())
           );
         }
       }
-
-      if (startTime && endTime) {
-        const startDate = new Date(startTime);
-        startDate.setHours(0, 0, 0, 0);
-        const endDate = new Date(endTime);
-        endDate.setHours(0, 0, 0, 0);
-
-        filteredRows = documents.filter((f) => {
-          const createdDate = new Date(f.created_at_display);
-          createdDate.setHours(0, 0, 0, 0);
-
-          if (startDate.getTime() === endDate.getTime()) {
-            return createdDate.getTime() === startDate.getTime();
-          }
-
-          return createdDate >= startDate && createdDate <= endDate;
-        });
-      }
       setRows(filteredRows);
     }
-  }, [searchOption, searchValue, startTime, endTime]);
+  }, [searchOption, searchValue]);
 
   const [openExport, setOpenExport] = React.useState(false);
 
   const handleOpenExport = () => setOpenExport(true);
-  const handleCloseExport = (event, reason) => setOpenExport(false);
-
-  // React.useEffect(() => {
-  //   const fetchDocument = async () => {
-  //     try {
-  //       // startLoading();
-  //       setRows([]);
-  //       setDocuments([]);
-  //       const result = await Document.toList();
-  //       if (result.status === 200) {
-  //         // stopLoading();
-  //         setRows(result.data);
-  //         setDocuments(result.data);
-  //       }
-  //     } catch (error) {
-  //       // stopLoading();
-  //       await showDialog({
-  //         title: `ข้อผิดพลาด ${error.response.status}`,
-  //         message: error.response.data.error,
-  //         icon: "info",
-  //         btnRoutePush: {
-  //           enable: true,
-  //           label: "ปิด",
-  //           url: "",
-  //         },
-  //       });
-  //     } finally {
-  //       // stopLoading();
-  //     }
-  //   };
-
-  //   fetchDocument();
-  // }, []);
 
   const [value, setValue] = React.useState(0);
 
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    // Ensure the value is within the correct range of tabs
+    if (newValue >= 0 && newValue <= 3) {
+      setValue(newValue);
+    }
   };
 
   return (
     <Box sx={{ width: "100%" }}>
-      {/* <DialogExport
-        open={openExport}
-        handleClose={handleCloseExport}
-        filter={value}
-        data={rows}
-      /> */}
       {DialogComponent}
       <Box
         sx={{ borderBottom: 1, borderColor: "divider", position: "relative" }}
@@ -124,11 +70,18 @@ export default function AppTabs() {
           startIcon={<DownloadIcon />}
           onClick={() => handleOpenExport()}
           sx={{
-            position: "absolute",
+            position: {
+              xs: "static",
+              sm: "static",
+              md: "absolute",
+              xl: "absolute",
+            },
+            width: { xs: "100%", sm: "100%", md: "auto", xl: "auto" },
             right: 0,
             top: 0,
             zIndex: 999,
             bgcolor: "#455A64",
+            textTransform: "none",
             color: "white",
             ":hover": {
               bgcolor: "#455A64",
@@ -136,7 +89,7 @@ export default function AppTabs() {
             },
           }}
         >
-          ดาวน์โหลด .xls
+          Download .xls
         </Button>
 
         <RedIndicatorTabs
@@ -147,11 +100,16 @@ export default function AppTabs() {
           <Tab
             label={
               <div style={{ display: "flex", alignItems: "center" }}>
-                <span style={{ color: value === 0 ? "red" : "#616161" }}>
-                  ทั้งหมด
+                <span
+                  style={{
+                    color: value === 0 ? "#5C7E52" : "#616161",
+                    textTransform: "none",
+                  }}
+                >
+                  All
                 </span>
                 <CustomBadge
-                  bgColor={value === 0 ? "red" : "#455A64"}
+                  bgColor={value === 0 ? "#5C7E52" : "#455A64"}
                   color="white"
                 >
                   {rows.length}
@@ -163,11 +121,16 @@ export default function AppTabs() {
           <Tab
             label={
               <div style={{ display: "flex", alignItems: "center" }}>
-                <span style={{ color: value === 1 ? "red" : "#616161" }}>
-                  แบบร่าง
+                <span
+                  style={{
+                    color: value === 1 ? "#5C7E52" : "#616161",
+                    textTransform: "none",
+                  }}
+                >
+                  Actived
                 </span>
                 <CustomBadge
-                  bgColor={value === 1 ? "red" : "#455A64"}
+                  bgColor={value === 1 ? "#5C7E52" : "#455A64"}
                   color="white"
                 >
                   {rows.filter((f) => f.status === 0).length}
@@ -179,11 +142,16 @@ export default function AppTabs() {
           <Tab
             label={
               <div style={{ display: "flex", alignItems: "center" }}>
-                <span style={{ color: value === 2 ? "red" : "#616161" }}>
-                  รออนุมัติ
+                <span
+                  style={{
+                    color: value === 2 ? "#5C7E52" : "#616161",
+                    textTransform: "none",
+                  }}
+                >
+                  Disable
                 </span>
                 <CustomBadge
-                  bgColor={value === 2 ? "red" : "#455A64"}
+                  bgColor={value === 2 ? "#5C7E52" : "#455A64"}
                   color="white"
                 >
                   {rows.filter((f) => f.status === 1).length}
@@ -195,11 +163,16 @@ export default function AppTabs() {
           <Tab
             label={
               <div style={{ display: "flex", alignItems: "center" }}>
-                <span style={{ color: value === 3 ? "red" : "#616161" }}>
-                  อนุมัติแล้ว
+                <span
+                  style={{
+                    color: value === 3 ? "#5C7E52" : "#616161",
+                    textTransform: "none",
+                  }}
+                >
+                  Unknown
                 </span>
                 <CustomBadge
-                  bgColor={value === 3 ? "red" : "#455A64"}
+                  bgColor={value === 3 ? "#5C7E52" : "#455A64"}
                   color="white"
                 >
                   {rows.filter((f) => f.status === 2).length}
@@ -208,29 +181,11 @@ export default function AppTabs() {
             }
             {...a11yProps(3)}
           />
-          <Tab
-            label={
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <span style={{ color: value === 4 ? "red" : "#616161" }}>
-                  ไม่อนุมัติ
-                </span>
-                <CustomBadge
-                  bgColor={value === 4 ? "red" : "#455A64"}
-                  color="white"
-                >
-                  {rows.filter((f) => f.status === 3).length}
-                </CustomBadge>
-              </div>
-            }
-            {...a11yProps(4)}
-          />
         </RedIndicatorTabs>
       </Box>
 
       <CustomTabPanel value={value} index={0}>
-        <Transition>
-          {rows.length !== 0 ? <TableDocument rows={rows} /> : null}
-        </Transition>
+        <Transition>{rows && <TableDocument rows={rows} />}</Transition>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <Transition>
@@ -245,11 +200,6 @@ export default function AppTabs() {
       <CustomTabPanel value={value} index={3}>
         <Transition>
           <TableDocument rows={rows.filter((f) => f.status === 2)} />
-        </Transition>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
-        <Transition>
-          <TableDocument rows={rows.filter((f) => f.status === 3)} />
         </Transition>
       </CustomTabPanel>
     </Box>

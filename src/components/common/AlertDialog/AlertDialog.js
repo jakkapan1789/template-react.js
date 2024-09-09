@@ -8,10 +8,10 @@ import {
   Box,
   Typography,
   Stack,
+  Zoom,
 } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-
 import { useNavigate } from "react-router-dom";
 
 const useDialog = () => {
@@ -62,12 +62,12 @@ const useDialog = () => {
       maxWidth={"xs"}
       fullWidth
       open={open}
-      // onClose={() => handleClose(false)}
       onClose={(event, reason) => {
         if (reason !== "backdropClick" && reason !== "escapeKeyDown") {
           handleClose(false);
         }
       }}
+      TransitionComponent={Zoom}
       disableEscapeKeyDown={true}
     >
       <DialogContent>
@@ -96,13 +96,12 @@ const useDialog = () => {
                 sx={{
                   fontSize: 60,
                   color: "#FFA10A",
-
                   transform: "rotate(180deg)",
                 }}
               />
             ) : null}
 
-            <Typography variant="h5" sx={{ fontWeight: "bold", pb: 1, pt: 1 }}>
+            <Typography variant="h5" sx={{ pb: 1, pt: 1 }}>
               {dialogData.title}
             </Typography>
             <Typography>{dialogData.message}</Typography>
@@ -116,7 +115,6 @@ const useDialog = () => {
               <Grid item xs={6}>
                 <Button
                   onClick={() => handleClose(false)}
-                  //   color="error"
                   sx={{
                     color: "#5C7E52",
                     borderColor: "#5C7E52",
@@ -132,7 +130,6 @@ const useDialog = () => {
               <Grid item xs={6}>
                 <Button
                   onClick={() => handleClose(true)}
-                  //   color="error"
                   sx={{
                     bgcolor: "#5C7E52",
                     ":hover": { bgcolor: "#5C7E52" },
@@ -147,30 +144,26 @@ const useDialog = () => {
               </Grid>
             </>
           ) : (
-            <>
-              <Grid item xs={12}>
-                <Button
-                  onClick={() => {
-                    {
-                      dialogData.btnConfirmRedirectUrl &&
-                        navigate(dialogData.btnConfirmRedirectUrl);
-                    }
-
-                    handleClose(true);
-                  }}
-                  sx={{
-                    bgcolor: "#5C7E52",
-                    ":hover": { bgcolor: "#5C7E52" },
-                    textTransform: "none",
-                  }}
-                  variant="contained"
-                  autoFocus={false}
-                  fullWidth
-                >
-                  {dialogData.btnConfirmText}
-                </Button>
-              </Grid>
-            </>
+            <Grid item xs={12}>
+              <Button
+                onClick={() => {
+                  if (dialogData.btnConfirmRedirectUrl) {
+                    navigate(dialogData.btnConfirmRedirectUrl);
+                  }
+                  handleClose(true);
+                }}
+                sx={{
+                  bgcolor: "#5C7E52",
+                  ":hover": { bgcolor: "#5C7E52" },
+                  textTransform: "none",
+                }}
+                variant="contained"
+                autoFocus={false}
+                fullWidth
+              >
+                {dialogData.btnConfirmText}
+              </Button>
+            </Grid>
           )}
         </Grid>
       </DialogActions>

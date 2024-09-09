@@ -23,11 +23,47 @@ import StyledTableRow from "./StyledTableRow/StyledTableRow";
 import ChanelTooltip from "./ChanelTooltip/ChanelTooltip";
 import { useNavigate } from "react-router";
 
+const headers = [
+  {
+    name: "Brand",
+  },
+  {
+    name: "Model",
+    align: "left",
+  },
+  {
+    name: "Equipment Name",
+    align: "left",
+  },
+  {
+    name: "Number",
+    align: "left",
+  },
+  {
+    name: "Type Number",
+    align: "center",
+  },
+  // {
+  //   name: "Column 6",
+  //   align: "center",
+  // },
+  // {
+  //   name: "Column 7",
+  //   align: "center",
+  // },
+  // {
+  //   name: "Column 8",
+  //   align: "center",
+  // },
+  // {
+  //   name: "Column 9",
+  //   align: "center",
+  // },
+];
 export default function TableDocument({ rows }) {
   const navigate = useNavigate();
-  // const { searchOption, searchValue, startTime, endTime } = useDocument();
   const defaultRowHeight = 61;
-  const rowsPerPage = 8;
+  const rowsPerPage = 10;
   const [page, setPage] = React.useState(1);
   const [pageCount, setPageCount] = React.useState(
     Math.ceil(rows.length / rowsPerPage)
@@ -41,6 +77,7 @@ export default function TableDocument({ rows }) {
   const handleSelectChange = (event) => {
     setPage(event.target.value);
   };
+  console.log("rows", rows[0]);
 
   React.useEffect(() => {
     let filteredRows = rows;
@@ -69,26 +106,18 @@ export default function TableDocument({ rows }) {
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>Campaign Code</StyledTableCell>
-                <StyledTableCell align="left">
-                  Communication Code
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  Communication Name
-                </StyledTableCell>
-                <StyledTableCell align="left">สร้างโดย</StyledTableCell>
-                <StyledTableCell align="left">วันที่สร้าง</StyledTableCell>
-                <StyledTableCell align="center">ช่องทางสื่อสาร</StyledTableCell>
-                <StyledTableCell align="center">สถานะ</StyledTableCell>
-                <StyledTableCell align="center">
-                  วันที่อัพเดทล่าสุด (Admin)
-                </StyledTableCell>
+                {headers &&
+                  headers.map((header, index) => (
+                    <StyledTableCell key={index} align={header.align}>
+                      {header.name}
+                    </StyledTableCell>
+                  ))}
               </TableRow>
             </TableHead>
             <TableBody>
               {paginatedRows.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={8} sx={{ border: "none" }}>
+                  <TableCell colSpan={headers.length} sx={{ border: "none" }}>
                     <Grid container>
                       <Grid item xs={12}>
                         <Stack
@@ -106,10 +135,11 @@ export default function TableDocument({ rows }) {
                           <Typography
                             sx={{ color: "#455A64", fontWeight: "bold" }}
                           >
-                            ไม่พบผลลัพธ์ที่คุณค้นหา
+                            No results found for your search.
                           </Typography>
                           <Typography sx={{ color: "#455A64" }}>
-                            กรุณาลองใช้คำค้นอื่น แล้วลองค้นหาใหม่อีกครั้ง
+                            Please try using a different search term. Then try
+                            searching again.
                           </Typography>
                         </Stack>
                       </Grid>
@@ -130,7 +160,7 @@ export default function TableDocument({ rows }) {
                     }}
                   >
                     <StyledTableCell component="th" scope="row">
-                      {row.campaign_code}
+                      {row.equipmenT_BRAND_NO}
                     </StyledTableCell>
                     <StyledTableCell
                       align="left"
@@ -144,30 +174,30 @@ export default function TableDocument({ rows }) {
                         navigate(`docs/update?guid=${row.communication_guid}`)
                       }
                     >
-                      {row.communication_code}
+                      {row.equipmenT_MODEL}
                     </StyledTableCell>
                     <StyledTableCell align="left">
-                      {row.marketing_name}
+                      {row.equipmenT_NAME}
                     </StyledTableCell>
                     <StyledTableCell align="left">
-                      {row.created_by}
-                    </StyledTableCell>
-                    <StyledTableCell align="left">
-                      {row.created_at_display}
+                      {row.equipmenT_NO}
                     </StyledTableCell>
                     <StyledTableCell align="center">
+                      {row.equipmenT_TYPE_NO}
+                    </StyledTableCell>
+                    {/* <StyledTableCell align="center">
                       {row.chanel_amount === 0 ? (
                         <Chip label={row.chanel_amount} />
                       ) : (
                         <ChanelTooltip data={row} />
                       )}
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
+                    </StyledTableCell> */}
+                    {/* <StyledTableCell align="center">
                       <ChipStatus status={row.status} />
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                      {row.updated_at_display}
-                    </StyledTableCell>
+                    </StyledTableCell> */}
+                    {/* <StyledTableCell align="center">
+                      {row.equipmenT_UPDATE_BY}
+                    </StyledTableCell> */}
                   </StyledTableRow>
                 ))
               )}
@@ -191,7 +221,7 @@ export default function TableDocument({ rows }) {
               lg={4}
               sx={{ textAlign: "left", paddingLeft: 2, paddingBottom: 1 }}
             >
-              <Typography>ทั้งหมด {rows.length} รายการ</Typography>
+              <Typography>All {rows.length} items</Typography>
             </Grid>
             <Grid
               item
@@ -224,7 +254,7 @@ export default function TableDocument({ rows }) {
                 paddingBottom: 1,
               }}
             >
-              <Typography sx={{ marginRight: 1 }}>หน้า</Typography>
+              <Typography sx={{ marginRight: 1 }}>Page</Typography>
               <Select
                 size="small"
                 value={page}

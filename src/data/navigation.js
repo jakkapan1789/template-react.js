@@ -21,7 +21,17 @@ const navigationConfig = [
   },
   {
     label: "Inventory Control",
-    path: "/document",
+    // path: "/document",
+    submenu: [
+      {
+        label: "Inventory List",
+        path: "/document",
+      },
+      {
+        label: "Inventory Create",
+        path: "/document/create",
+      },
+    ],
   },
 ];
 

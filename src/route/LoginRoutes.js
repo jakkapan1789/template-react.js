@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Login from "pages/Login/Login";
-
+import NotFound from "pages/NotFound/NotFound";
 const LoginRoutes = {
   path: "/",
   element: <Outlet />,
@@ -8,6 +8,10 @@ const LoginRoutes = {
     {
       path: "/auth/login",
       element: <Login />,
+    },
+    {
+      path: "*",
+      element: <NotFound />,
     },
   ],
 };

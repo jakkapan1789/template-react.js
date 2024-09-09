@@ -4,7 +4,7 @@ import Dashboard from "pages/Dashboard/Dashboard";
 import Home from "pages/Home/Home";
 import Component from "pages/Component/Component";
 import Document from "pages/Document/Document";
-
+import Create from "pages/Document/Create/Create";
 const MainRoutes = {
   path: "/",
   element: (
@@ -28,6 +28,10 @@ const MainRoutes = {
     {
       path: "document",
       element: <Document />,
+    },
+    {
+      path: "document/create",
+      element: <Create />,
     },
   ],
 };
