@@ -48,7 +48,7 @@ export default function Profile() {
               sx={{ p: 0.1, cursor: "pointer" }}
               onClick={handleClick}
             >
-              <Typography sx={{ fontSize: 16 }}>Nopporn Pakeerat</Typography>
+              <Typography sx={{ fontSize: 16 }}>Jakkapan Pakeerat</Typography>
               <Typography variant="caption" display="block" gutterBottom>
                 IT (Admin)
               </Typography>

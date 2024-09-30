@@ -54,29 +54,31 @@ html, body {
   background-color: #4f7244;
 }
 
-.dropdown:hover .submenu,
-.dropdown:hover .subsubmenu {
+.dropdown:hover .submenu{
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-.submenu,
-.subsubmenu {
+.dropdown-sub:hover .subsubmenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  
+}
+
+
+.submenu{
   position: absolute;
   background-color: #000; 
   min-width: 200px;
   z-index: 1000;
   border-radius: 15px; 
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-  transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s ease !important; 
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.1s ease !important; 
   transform: translateY(-10px);
   opacity: 0;
   visibility: hidden;
-}
-
-.submenu {
-  top: 33px;
 }
 
 .subsubmenu {
@@ -86,11 +88,75 @@ html, body {
   min-width: 200px;
   z-index: 1000;
   border-radius: 15px; 
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease !important;
-  transform: translateY(-10px);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.1s ease !important; 
+  transform: translateX(-10px); 
   opacity: 0;
   visibility: hidden;
+}
+
+.submenu li{
+  border-top: 1px solid #4f7244;
+}
+.subsubmenu li {
+  border-top: 1px solid #4f7244;
+}
+
+
+.submenu li:first-child{
+  border-top: none;
+}
+.subsubmenu li:first-child {
+  border-top: none;
+}
+
+.submenu a{
+  
+  padding: 10px 15px;
+  border-radius: 0;
+  color: #fff;
+  transition: color 0.3s, transform 0.3s;
+}
+.subsubmenu a {
+  padding: 10px 15px;
+  border-radius: 0;
+  color: #fff;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.submenu a:hover{
+  background-color: #4f7244;
+}
+.subsubmenu a:hover {
+  background-color: #4f7244;
+
+}
+
+
+/* Common styling for all submenus */
+
+/* 
+.submenu,
+.subsubmenu {
+  position: absolute;
+  background-color: #000;
+  min-width: 200px;
+  z-index: 1000;
+  border-radius: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.95);
+  transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s ease;
+}
+
+.submenu {
+  top: 33px;
+}
+
+.subsubmenu {
+  left: 100%; 
+  top: 0;
 }
 
 .submenu li,
@@ -108,13 +174,27 @@ html, body {
   padding: 10px 15px;
   border-radius: 0;
   color: #fff;
-  transition: color 0.3s, transform 0.3s;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.submenu.open,
+.subsubmenu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
 }
 
 .submenu a:hover,
 .subsubmenu a:hover {
   background-color: #4f7244;
 }
+.menu-item:hover .submenu,
+.submenu-item:hover .subsubmenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1); 
+} */
+
 
 .arrow {
   border: solid rgb(255, 255, 255);

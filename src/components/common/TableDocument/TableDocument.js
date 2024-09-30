@@ -77,7 +77,7 @@ export default function TableDocument({ rows }) {
   const handleSelectChange = (event) => {
     setPage(event.target.value);
   };
-  console.log("rows", rows[0]);
+  // console.log("rows", rows[0]);
 
   React.useEffect(() => {
     let filteredRows = rows;

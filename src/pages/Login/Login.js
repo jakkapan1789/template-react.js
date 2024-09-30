@@ -246,25 +246,17 @@ export default function Login() {
       } else {
         await showDialog({
           title: "Login Failed",
-          message: "Invalid username or password",
-          icon: "info",
-          btnRoutePush: {
-            enable: true,
-            label: "Close",
-            url: "",
-          },
+          message: `Invalid username or password.`,
+          icon: "error",
+          btnConfirmText: "Ok",
         });
       }
     } catch (error) {
       await showDialog({
         title: "Error",
-        message: "An unexpected error occurred.",
-        icon: "info",
-        btnRoutePush: {
-          enable: true,
-          label: "Close",
-          url: "",
-        },
+        message: `An unexpected error occurred.`,
+        icon: "error",
+        btnConfirmText: "Ok",
       });
     } finally {
       setSubmitting(false);

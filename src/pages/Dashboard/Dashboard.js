@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Card, Grid, Typography } from "@mui/material";
 import TopSpenders from "components/common/TopSpenders";
+import Banner from "components/common/Banner/Banner";
 const rewards = ["Toy Car", "Stuffed Animal", "Candy", "Book", "Gift Card"];
+
 const Dashboard = () => {
   const [reward, setReward] = useState(null);
 
@@ -35,7 +37,9 @@ const Dashboard = () => {
     //   </Grid>
     // </Grid>
     // <TopSpenders />
-    <></>
+    <>
+      <Banner />
+    </>
   );
 };
 

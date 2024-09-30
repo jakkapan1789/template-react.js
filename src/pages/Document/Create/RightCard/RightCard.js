@@ -211,7 +211,7 @@ const RightCard = () => {
                     <Divider sx={{ mt: 5 }} />
                     <Box
                       sx={{
-                        p: 2,
+                        pt: 2,
 
                         display: "flex",
                         justifyContent: "space-between",
